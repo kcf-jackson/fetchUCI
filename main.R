@@ -47,8 +47,10 @@ fetch_description <- function(uci_dataset_name, dest = ".") {
   desc_url <- uci_datasets %>% filter(name == uci_dataset_name) %>% 
     select(`Data Set Description`) %>% as_vector
   
-  if(desc_url != "https://archive.ics.uci.edu/ml/datasets/#") {
-    dir.create(uci_dataset_name)
+  if (desc_url != "https://archive.ics.uci.edu/ml/datasets/#") {
+    if (!dir.exists(uci_dataset_name)) {
+      dir.create(uci_dataset_name)  
+    }
     
     desc_file <- file.path(dest, uci_dataset_name, basename(desc_url))
     desc_url %>% curl_download(desc_file)
@@ -62,8 +64,10 @@ fetch_data <- function(uci_dataset_name, dest = ".") {
   safe_res <- uci_datasets %>% filter(name == uci_dataset_name) %>%
     select(files) %>% extract2(1) %>% extract2(1)
   
-  if(is.null(safe_res$error)) {
-    dir.create(uci_dataset_name)
+  if (is.null(safe_res$error)) {
+    if (!dir.exists(uci_dataset_name)) {
+      dir.create(uci_dataset_name)  
+    }
     
     file_urls <- safe_res$result %>%
       filter(!text %in% c("Parent Directory", "Index")) %>%
