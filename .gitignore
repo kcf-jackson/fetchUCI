@@ -37,4 +37,10 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# R related files #
+###################
+*.Rproj
 .Rproj.user
+.RData
+.Rhistory
