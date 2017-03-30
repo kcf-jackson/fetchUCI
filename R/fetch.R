@@ -2,6 +2,7 @@ utils::globalVariables(c("name", "files", ".", "href", "description"))
 
 #' Fetch UCI data description
 #' @importFrom magrittr "%>%"
+#' @export
 #' @param uci_dataset_name Name of UCI dataset. See fetchUCI::uci_metadata$name.
 #' @param dest Directory in which to create a folder. Default to "./".
 #' @examples
@@ -27,6 +28,7 @@ fetch_description <- function(uci_dataset_name, dest = ".") {
 
 #' Fetch UCI data files
 #' @importFrom magrittr "%>%"
+#' @export
 #' @param uci_dataset_name Name of UCI dataset. See fetchUCI::uci_metadata$name.
 #' @param dest Directory in which to create a folder. Default to "./".
 #' @return A list of results from code{curl::curl_fetch_disk}.
