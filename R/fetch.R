@@ -11,7 +11,7 @@ utils::globalVariables(c("name", "files", ".", "href", "description"))
 fetch_description <- function(uci_dataset_name, dest = ".") {
     desc_url <- fetchUCI::uci_metadata %>%
         dplyr::filter(name == uci_dataset_name) %>%
-        dplyr::select(description) %>% as.vector
+        dplyr::select(description) %>% purrr::as_vector()
 
     if (desc_url != "https://archive.ics.uci.edu/ml/datasets/#") {
         if (!dir.exists(uci_dataset_name)) {
