@@ -8,6 +8,7 @@ library(stringr)
 library(tibble)
 library(tidyr)
 
+
 # A helper function to fetch href from url.
 get_href <- function(url, css, dirname = TRUE) {
     pdir <- ifelse(dirname, dirname(url), url)
@@ -18,8 +19,16 @@ get_href <- function(url, css, dirname = TRUE) {
 
     return(tibble(text = text, href = href))
 }
-
 safe_get_href <- safely(get_href)
+
+# A function to remove special characters from the dataset name
+special_char_trim <- function(str0) {
+  special_char <- c("<", ">",":","\'","/","\\","|","?", "*")
+  str1 <- str0 %>% strsplit(split = "") %>% extract2(1)
+  keep <- !(str1 %in% special_char)
+  str1[keep] %>% paste(collapse = "")
+}
+
 
 # Get datasets metadata.
 uci_url <- "https://archive.ics.uci.edu/ml/datasets.html"
@@ -53,6 +62,7 @@ uci_data_urls %<>% mutate(
 uci_data_urls %<>%
     select(name, url, `Data Folder`, `Data Set Description`, file_urls) %>%
     set_colnames(c("name", "url", "folder", "description", "files"))
+uci_data_urls$name %<>% map_char(special_char_trim)
 
 # Join the two tibbles then save.
 uci_metadata %<>% left_join(., uci_data_urls)
