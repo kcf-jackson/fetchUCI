@@ -62,7 +62,7 @@ uci_data_urls %<>% mutate(
 uci_data_urls %<>%
     select(name, url, `Data Folder`, `Data Set Description`, file_urls) %>%
     set_colnames(c("name", "url", "folder", "description", "files"))
-uci_data_urls$name %<>% map_char(special_char_trim)
+uci_data_urls$name %<>% map_chr(special_char_trim)
 
 # Join the two tibbles then save.
 uci_metadata %<>% left_join(., uci_data_urls)
