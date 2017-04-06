@@ -1,6 +1,6 @@
 Package: fetchUCI
 Title: Fetch data from the UCI Machine Learning Repository
-Version: 0.0.1
+Version: 0.1.4
 Authors@R: c(
     person("Felix", "Leung", , "felix.leungsc@gmail.com", role = c("aut", "cre")),
     person("Jackson", "Kwok", role = "aut")
@@ -14,6 +14,8 @@ Imports:
     magrittr,
     purrr,
     tibble
+Suggests:
+  stringr
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
