@@ -65,7 +65,7 @@ fetch_data <- function(uci_dataset_name, dest = ".") {
 #' @param dest Directory in which to create a folder. Default to "./".
 #' @keywords internal
 #' @description This function prints out the dataset names that are problematic and 
-#' requires manual fixing.
+#' require further investigation.
 batch_fetch_data <- function(uci_dataset_name, dest = ".") {
   if (length(uci_dataset_name) == 1) {
     return(fetch_data(uci_dataset_name, dest))
