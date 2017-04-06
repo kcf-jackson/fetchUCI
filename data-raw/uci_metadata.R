@@ -24,17 +24,15 @@ safe_get_href <- safely(get_href)
 # A function to remove special characters from the dataset name
 special_char_trim <- function(str0) {
   # check the encoding
-  str1 <- str0 %>% strsplit("") %>% magrittr::extract2(1)
+  str1 <- str0 %>% strsplit("") %>% extract2(1)
   str_encoding <- str1 %>% map_chr(Encoding)
   if (length(unique(str_encoding)) == 1) {
-    return(str_replace_all(str1, "[[:punct:]]", ""))
+    return(str_replace_all(str0, "[[:punct:]]", ""))
   }
-  
   # If there is mixed encoding, then find the majority one and remove all the rest
   encoding_table <- table(str_encoding)
   majority <- which(encoding_table == max(encoding_table)) %>% names()
   str2 <- str1[str_encoding == majority] %>% paste(collapse = "")
-  
   # remove punctuation
   str2 %>% str_replace_all("[[:punct:]]", "")
 }
