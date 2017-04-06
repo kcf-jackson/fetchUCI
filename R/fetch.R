@@ -59,3 +59,30 @@ fetch_data <- function(uci_dataset_name, dest = ".") {
         return(res)
     }
 }
+
+#' Group fetch data
+#' @uci_dataset_name Vector of characters; names of UCI dataset.
+#' @param dest Directory in which to create a folder. Default to "./".
+#' @keywords internal
+#' @description This function prints out the dataset names that are problematic and 
+#' requires manual fixing.
+batch_fetch_data <- function(uci_dataset_name, dest = ".") {
+  if (length(uci_dataset_name) == 1) {
+    return(fetch_data(uci_dataset_name, dest))
+  } 
+  for (model in uci_dataset_name) {
+    tryCatch(
+      expr = {
+        fetch_data(model, dest)
+      },
+      error = function(e) {
+        print(model)
+        print(e)
+      },
+      warning = function(w) {
+        print(model)
+        print(w)
+      }
+    )
+  }
+}
